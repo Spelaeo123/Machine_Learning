@@ -1,0 +1,91 @@
+
+Include in PhD:
+
+meteor normalised vs non meteor normalised
+Random forest base model, ~60% accuracy
+<<<<<<< HEAD:objectives.txt
+Discuss removing sites that don't classify
+F1 scores
+Where Do The Artefacts Come From????
+=======
+visualise the random forest in some way
+show feature importances from model
+show F1 scores
+>>>>>>> pca_dev:.ipynb_checkpoints/ML_workflow-checkpoint.txt
+
+To Do:
+Note for Tom: What is it about the sites that aren't classifying?
+Note for Tom: To classify superficial nodules instead of sites, create 'regions' in dataset and give to Robbie.
+
+
+
+
+
+
+
+
+
+
+Work for Paper: 'Sourcing Mesolithic Artefacts in the Random Forest'
+
+dimensionality reduction techniques
+do heatmap of variable loadings for the PCAs
+
+gradient boosting
+use the XGBoost library, its better than sklearns version
+stacking/blending
+
+try stacking with and without the things above that have proven to increase the single model score
+
+make sure to do 10-fold stratified CV for all models and make sure to calculate F1 scores for binary classification fo each site is or isnot eg is PH is not PH run model then calculate F1 score.
+
+neural networks
+feature selection
+filter for colinear and low variance features compare model with and without filtering
+
+feature transformations
+using pipeline compare:random forest with PCA transformation then just include the PCA transformed data compare to without.
+use tSNE then add first three dimensions to end of dataset and compare models with and without
+use PCA then add first three dimensions to end of dataset and compare models with and without
+use polynomial features, 2nd and 3rd order, append to end of dataset copare models with and without
+better random forest?
+
+
+
+Questions:
+Geological samples (bedrock)
+To what extent can the bedrock geological samples be differentiated by their sources, subsite, site and stratigraphy?
+
+look at underlying structure within data using dimensionality reduction and/or clustering techniques:
+PCA
+K-means
+t-SNE
+
+
+
+Geological samples (superficial)
+To what extent can the superficial geological samples be differentiated by their sources, subsite, site? Is this different to bedrock samples eg less structure? If it is different, why?
+
+look at underlying structure within data using dimensionality reduction and/or clustering techniques:
+PCA
+K-means
+t-SNE
+
+To what extent can the bedrock geological samples be differentiated from the superficial samples?
+
+look at underlying structure within data using dimensionality reduction and/or clustering techniques:
+PCA
+K-means
+t-SNE
+
+
+To what extent can the flint artefacts be classified correctly back to source?
+Use machine learning classifiers:
+
+Data infor:
+ids:
+Geology: bedrock vs superficial
+Province: which geographical part of Britain
+Formation: which stratigraphic band
+Band
+Nodule

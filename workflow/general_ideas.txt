@@ -1,0 +1,20 @@
+Read Laurent Gattos papers where he uses classifiers for cell niches, get an idea of how to validate approaches better and how to present findings eg. how much of the code is shown, how best validate models how to reference people etc? 
+
+*In biochem papers peope seem to be calculating 'macro-F1 scores' for overall model evaluation they use k-fold cv (we'll use stratified k-fold cv as it's better) then to evaluate effects on individual cell niches they use F1 scores ( I need to check this to be sure, this can be done with sklearn, the documentation for F1_scores actually shows the use with a 3 class problem. They also use 'weighted classifiers???'*
+
+
+
+Read Archeology papers that have used multivariate statistics to get an idea of competition.
+
+
+split random forest notebook into data preproccessing and modelling notebooks so can just run the former notebook then whichever model notebook I want
+
+make PCA notebooks more generalisable to be able to colour by different variables just by changing configs. 
+
+Better annotate all code
+
+get legends on 3d plots (this will be tricky because atm I have to label encode to be able to make the 3d plots)
+
+make configs to svae files or not and properly automate file naming eg color_by_pca/tSne etc.
+
+output 3 components of tSNE and PCA to be able to append tp end of dataset after importing rather than having t run the PCA/tSNE scripts
