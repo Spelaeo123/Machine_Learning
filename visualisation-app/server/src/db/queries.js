@@ -8,8 +8,35 @@ const pool = new Pool({
     port: 5432
 });
 
-const getUsers = (request, response) => {
-    pool.query("SELECT * FROM all_data", (error, results) => {
+const getAllPcaData = (request, response) => {
+    pool.query("SELECT * FROM pca_all_train", (error, results) => {
+        if (error) {
+            throw error;
+        }
+        response.status(200).json(results.rows);
+    });
+};
+
+const getBedrockPcaData = (request, response) => {
+    pool.query("SELECT * FROM pca_bedrock", (error, results) => {
+        if (error) {
+            throw error;
+        }
+        response.status(200).json(results.rows);
+    });
+};
+
+const getSuperficialPcaData = (request, response) => {
+    pool.query("SELECT * FROM pca_superficial", (error, results) => {
+        if (error) {
+            throw error;
+        }
+        response.status(200).json(results.rows);
+    });
+};
+
+const getTestPcaData = (request, response) => {
+    pool.query("SELECT * FROM pca_test", (error, results) => {
         if (error) {
             throw error;
         }
@@ -18,5 +45,8 @@ const getUsers = (request, response) => {
 };
 
 module.exports = {
-    getUsers,
-}
+    getAllPcaData,
+    getBedrockPcaData,
+    getSuperficialPcaData,
+    getTestPcaData
+};
