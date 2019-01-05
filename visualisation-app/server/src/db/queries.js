@@ -1,12 +1,10 @@
 const Pool = require("pg").Pool;
 
-const pool = new Pool({
-    user: "postgres",
-    host: "localhost",
-    database: "archeoViz",
-    password: "password",
-    port: 5432
-});
+// Get the databse URL from the environment
+const { DATABASE_URL } = process.env;
+
+// Use a connection Pool through which we can query the database.
+const pool = new Pool({ connectionString: DATABASE_URL });
 
 const getAllPcaData = (request, response) => {
     pool.query("SELECT * FROM pca_all_train", (error, results) => {
