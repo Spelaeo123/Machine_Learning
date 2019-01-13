@@ -1,2 +1,0 @@
-python: python src/python-models/main.py
-node: npm start

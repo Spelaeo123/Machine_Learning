@@ -1,1 +1,1 @@
-web: bin/runsvdir-dyno
+python: python src/python-models/main.py & npm start
