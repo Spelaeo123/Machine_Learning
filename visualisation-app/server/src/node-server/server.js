@@ -16,7 +16,7 @@ const testRpc = (request, response) => {
 
     client.invoke("hello", "World!", function(error, res, more) {
         console.log(res);
-        return response.status(200).json(res);s
+        return response.status(200).json(res);
     });
 };
 
