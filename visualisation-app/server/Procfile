@@ -1,1 +1,1 @@
-python: python src/python-models/main.py & npm start
+web: python src/python-models/main.py & npm start
