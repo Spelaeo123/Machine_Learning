@@ -10,11 +10,11 @@ const port = process.env.PORT || 3000;
 
 const testRpc = (request, response) => {
     var client = new zerorpc.Client();
-    client.connect("tcp://127.0.0.1:4242");
+    client.connect(process.env.PYTHON_SERVER_ADDRESS);
 
     client.invoke("hello", "World!", function(error, res, more) {
         console.log(res);
-        return response.status(200).json(res);
+        return response.status(200).json(res);s
     });
 };
 
