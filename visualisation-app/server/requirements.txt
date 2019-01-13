@@ -2,7 +2,6 @@ future==0.17.1
 gevent==1.4.0
 greenlet==0.4.15
 msgpack-python==0.5.6
-pkg-resources==0.0.0
 python-dotenv==0.10.1
 pyzmq==17.1.2
 zerorpc==0.6.1
