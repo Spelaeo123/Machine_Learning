@@ -5,15 +5,16 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node src/server.js",
-    "start:watch": "nodemon src/server.js"
+    "start": "node src/server.js && python3 src/main.py",
+    "start:watch": "nodemon src/server.js && python3 src/main.py"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "dotenv": "^6.2.0",
     "express": "^4.16.4",
-    "pg": "^7.7.1"
+    "pg": "^7.7.1",
+    "zerorpc": "^0.9.8"
   },
   "engines": {
     "node": "10.13.0"
