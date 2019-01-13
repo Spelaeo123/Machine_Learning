@@ -8,9 +8,11 @@ const db = require('./db/queries');
 const app = express();
 const port = process.env.PORT || 3000;
 
+// Set up the Python Server.
+var client = new zerorpc.Client();
+client.connect(process.env.PYTHON_SERVER_ADDRESS);
+
 const testRpc = (request, response) => {
-    var client = new zerorpc.Client();
-    client.connect(process.env.PYTHON_SERVER_ADDRESS);
 
     client.invoke("hello", "World!", function(error, res, more) {
         console.log(res);
