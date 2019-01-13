@@ -1,1 +1,2 @@
-web: python src/main.py & npm start
+python: python src/main.py
+web: npm start
