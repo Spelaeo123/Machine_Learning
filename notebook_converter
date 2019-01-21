@@ -1,6 +1,6 @@
 #convert to pdf
-ipython nbconvert --to pdf name_of_notebook.ipynb
+jupyter nbconvert --to pdf name_of_notebook.ipynb
 #convert to html
-ipython nbconvert --to html name_of_notebook.ipynb
+jupyter nbconvert --to html name_of_notebook.ipynb
 
 
