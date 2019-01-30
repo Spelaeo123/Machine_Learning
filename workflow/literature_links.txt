@@ -1,0 +1,11 @@
+use of machine learning to classify bronze age artefacts
+https://dl.acm.org/citation.cfm?id=2533988
+
+machine learning for classification of soil lithogies
+https://www.sciencedirect.com/science/article/pii/S0305440315001284
+
+computer vision for classification of pots
+https://lvdmaaten.github.io/publications/papers/CAA_2006.pdf
+
+using computer vision for classifiying arrowhead types
+Nash, Brendan, S., and Prewitt, Elton, R., 2016, The use of artificial neural networks in projectile point typology: Lithic Technology, v. 41, p. 194–211, doi:10.1080/01977261.2016.1184876.
