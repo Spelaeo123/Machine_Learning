@@ -1,0 +1,19 @@
+list of links to literature where machine learning is used in the field of archeology
+
+
+
+use of machine learning to classify bronze age artefacts
+https://dl.acm.org/citation.cfm?id=2533988
+
+machine learning for classification of soil lithogies
+https://www.sciencedirect.com/science/article/pii/S0305440315001284
+
+computer vision for classification of pots
+https://lvdmaaten.github.io/publications/papers/CAA_2006.pdf
+
+using computer vision for identifying typographical groups from unstructured data in an unsupervised manner
+
+Nash, Brendan, S., and Prewitt, Elton, R., 2016, The use of artificial neural networks in projectile point typology: Lithic Technology, v. 41, p. 194–211, doi:10.1080/01977261.2016.1184876.
+
+use of NLP to classify pottery sherds as belonging to same overall structure
+https://www.iti.gr/iti/files/document/publications/ACM-daras.pdf
