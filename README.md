@@ -1,2 +1,2 @@
-# archeology_MachineLearning
+# Machine Learning
 application of machine learning techniques to archeological data
