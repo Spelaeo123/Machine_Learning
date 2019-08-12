@@ -1,3 +1,7 @@
+'''drop_semi_bedrock ->  boolean, if set to True then some bedrock sites deemed to be semi-bedrock sites are not used for classification
+'''
+
+bedrock_only = True
 data_input_path = '../data/raw_data.csv'
 drop_semi_bedrock = False
 features_start = 9

@@ -112,6 +112,59 @@ def learningCurve(model, X, y, cv, train_sizes = [0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.
 
 
 
+def replace_outliers(data, features_start, features_end, num_stds):
+    
+    '''
+    replace values more than num_stds standard deviations away from the feature mean with the mean. The function
+    assumes teh features are all adjacent to eachother in the column ordering, if they are not this won't work
+    
+    Paramaters:
+    
+        data: data, should be either data for which the target is known or for which the target is unknown.
+        Should not be a concatenation of the two otherwise there would be data leakage.
+        
+        features_start : integer, index in columns of data that contains first feature column
+        
+        features_end : integer, index in columns of data that contains last feature column
+        
+        num_stds : integer, the number of standard deviations away from the mean that a value is deemed as an outlier and is
+        replaced    
+        
+    Returns : 
+    
+        data : pandas dataframe, data with outliers replaced with mean value for the associated column
+    '''
+    
+    import swifter
+    import pandas as pd
+    import numpy as np
+    
+    std_dict_geo = {}
+    mean_dict_geo = {}
+    median_dict_geo = {}
+
+    for col in data.columns.values[features_start:features_end]:
+        std_dict_geo[col] = data[col].std()
+
+    for col in data.columns.values[features_start:features_end]:
+        mean_dict_geo[col] = data[col].mean()
+
+    for col in data.columns.values[features_start:features_end]:
+        median_dict_geo[col] = data[col].median()
+
+
+    for col_name in data.columns.values[features_start:features_end]:
+        def impute_outliers_geo(row):
+            if np.abs(row[col_name] - mean_dict_geo[col_name]) > 2*(std_dict_geo[col_name]):
+                return(mean_dict_geo[col_name])
+            else:
+                return(row[col_name])
+        data[col_name]= data.swifter.apply(impute_outliers_geo, axis = 1)
+
+    return(data)
+
+
+
 class myModel:
     
     '''
@@ -324,63 +377,108 @@ class myModel:
             self.accuracy_scores = accuracy_scores
             self.macro_f1_scores = macro_f1_scores
             self.f1_dict = f1_dict
-
-
             
             
             
-            
-            
-def replace_outliers(data, features_start, features_end, num_stds):
-    
-    '''
-    replace values more than num_stds standard deviations away from the feature mean with the mean. The function
-    assumes teh features are all adjacent to eachother in the column ordering, if they are not this won't work
-    
-    Paramaters:
-    
-        data: data, should be either data for which the target is known or for which the target is unknown.
-        Should not be a concatenation of the two otherwise there would be data leakage.
+    def evaluate_knn(self):
         
-        features_start : integer, index in columns of data that contains first feature column
+        '''
         
-        features_end : integer, index in columns of data that contains last feature column
+        Evaluates best k-nearest neighbours classifiers with available data by 10-fold stratified cross validation. Within each
+        train fold
+        this again undergoes 10-fold stratified cross-validation with grid search to identify best hyperparamaters for evaluating
+        best model.
         
-        num_stds : integer, the number of standard deviations away from the mean that a value is deemed as an outlier and is
-        replaced    
+        Paramters : None
         
-    Returns : 
-    
-        data : pandas dataframe, data with outliers replaced with mean value for the associated column
-    '''
-    
-    import swifter
-    import pandas as pd
-    import numpy as np
-    
-    std_dict_geo = {}
-    mean_dict_geo = {}
-    median_dict_geo = {}
+        Attributes :
+            
+            all attributes are evaluation metrics for 10-fold stratified cross validation
+            self.class_f1_scores : numpy array, averaged class specific f1 scores
+            self.accuracy_scores : list, accuracy scores
+            self.macro_f1_scores : list, overall F1 scores
+            self.f1_dict : dictionary, contains class specific f1 scores 
+            self.feat_imp_dict : dictionary, contains feature important scores
 
-    for col in data.columns.values[features_start:features_end]:
-        std_dict_geo[col] = data[col].std()
+        
+        '''
+        
+        from sklearn.model_selection import StratifiedKFold, RandomizedSearchCV, GridSearchCV, train_test_split
+        from sklearn.metrics import accuracy_score, f1_score
+        from sklearn.neighbors import KNeighborsClassifier
+        from imblearn.over_sampling import SMOTE
 
-    for col in data.columns.values[features_start:features_end]:
-        mean_dict_geo[col] = data[col].mean()
+        if True:
+            skf = StratifiedKFold(n_splits=10, random_state=42)
+            
 
-    for col in data.columns.values[features_start:features_end]:
-        median_dict_geo[col] = data[col].median()
+            class_f1_scores = []
+            macro_f1_scores = []
+            accuracy_scores = []
+            feat_imp =[]
+            f1_dict = {}
+            feat_imp_dict = {}
+            count = 0
 
 
-    for col_name in data.columns.values[features_start:features_end]:
-        def impute_outliers_geo(row):
-            if np.abs(row[col_name] - mean_dict_geo[col_name]) > 2*(std_dict_geo[col_name]):
-                return(mean_dict_geo[col_name])
-            else:
-                return(row[col_name])
-        data[col_name]= data.swifter.apply(impute_outliers_geo, axis = 1)
 
-    return(data)
+            for train_index, test_index in skf.split(self.X, self.y):
+
+                X_train, X_test = self.X[train_index], self.X[test_index]
+                y_train, y_test = self.y[train_index], self.y[test_index] 
+
+                #X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.20, stratify = y)
+                count = count + 1
+                print('making model:')
+                key = 'round' + str(count)
+                print(count)
+
+
+                X_post_smote, y_post_smote = SMOTE(random_state=42).fit_sample(X_train, y_train)
+
+
+                ###this section optimises model paramaters by gridsearch 
+
+                esti = KNeighborsClassifier()
+
+                n_neighbors = [4, 6, 8, 10, 12, 14]
+                weights = ['uniform', 'distance']
+
+
+                param_grid = {
+                           'n_neighbors': n_neighbors,
+                           'weights': weights, 
+                              }
+
+                clf = GridSearchCV(estimator = esti, param_grid= param_grid,
+                                          n_jobs=-1, scoring='f1_macro', cv = 5, verbose=3)
+                print('running grid search on this training data fold')
+                clf.fit(X_post_smote, y_post_smote)
+                optimumEstimator = clf.best_estimator_
+                optimumEstimator.fit(X_post_smote, y_post_smote)
+                print('''gridsearch identified optimum paramaters for the current training data fold, now model with optimumn
+                      paramaters predicting using test_data for evaluation''')
+
+                y_pred = optimumEstimator.predict(X_test)
+                class_f1_scores = f1_score(y_test, y_pred, average = None)
+                accuracy = accuracy_score(y_test, y_pred)
+                accuracy_scores.append(accuracy)
+                macro_f1_scores.append(f1_score(y_test, y_pred, average = 'macro'))
+                f1_dict[key] = class_f1_scores 
+
+                
+            self.class_f1_scores = class_f1_scores
+            self.accuracy_scores = accuracy_scores
+            self.macro_f1_scores = macro_f1_scores
+            self.f1_dict = f1_dict
+
+
+
+            
+
+            
+            
+
 
 
 class bestHyperparamaters:
@@ -442,7 +540,7 @@ class bestHyperparamaters:
         esti = RandomForestClassifier(n_estimators=5, random_state = 42)
 
 
-        max_depth = [8, 10, 12]
+        max_depth = [8, 10]
         min_samples_split = [3, 4]
         min_samples_leaf = [1, 2, 3]
 
@@ -470,7 +568,8 @@ def process_results(model, data, best_feats, uniques, identifiers):
     
         model : sklearn random forest classifier
     
-        data : pandas dataframe, dataset with features for unkown observations to be classified  
+        data : pandas dataframe, dataset with features for unkown observations to be classified and indicator of whether outlier or
+        not 
     
         best_feats : list, most predictive combination of features
         
@@ -493,14 +592,26 @@ def process_results(model, data, best_feats, uniques, identifiers):
     
     probabilities_df = pd.DataFrame(data = y_pred_proba, columns = uniques)
     probabilities_df_final = pd.concat([probabilities_df, identifiers.reset_index(drop = True)], axis = 1)
-    final_pred_df = pd.concat([pd.Series(y_pred), probabilities_df_final], axis = 1).rename(columns={0:'class_number'})
-    uniques_list = list(uniques)
-    print(uniques_list)
-    print(final_pred_df.head())
     
+    final_pred_df = pd.concat([pd.Series(y_pred), probabilities_df_final], axis = 1).rename(columns={0:'class_number'})
+    
+    final_predictions_df = pd.concat([final_pred_df, data['inlierLabel']], axis = 1)
+    
+    uniques_list = list(uniques)
     def get_pred_names(row):
         return(uniques_list[row['class_number']])
-    final_pred_df['class_predictions'] = final_pred_df.swifter.apply(get_pred_names, axis = 1)
     
-    return(final_pred_df)
+    final_predictions_df['class_predictions'] = final_predictions_df.apply(get_pred_names, axis = 1)
+
+    def outlierAssigner(row):
+        if row['inlierLabel'] == -1:
+            return('other')
+        else:
+            return(row['class_predictions'])
+        
+    final_predictions_df['class_predictions'] = final_predictions_df.swifter.apply(outlierAssigner, axis = 1)
+    
+    return(final_predictions_df)
+    
+
     
