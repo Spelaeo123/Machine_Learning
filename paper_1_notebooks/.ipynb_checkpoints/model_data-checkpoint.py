@@ -90,10 +90,10 @@ class myModel:
 
                 esti = RandomForestClassifier(max_features = 'auto', random_state = 42, n_jobs = -1)
 
-                n_estimators = [20, 25, 30]
-                max_depth = [8, 10, 12]
-                min_samples_split = [2, 3, 4]
-                min_samples_leaf = [1, 2, 3]
+                n_estimators = [2, 5]
+                max_depth = [8, 12]
+                min_samples_split = [2, 4]
+                min_samples_leaf = [1, 3]
 
                 param_grid = {
                            'max_depth': max_depth,
@@ -124,6 +124,7 @@ class myModel:
             self.macro_f1_scores = macro_f1_scores
             self.f1_dict = f1_dict
             self.feat_imp_dict = feat_imp_dict
+            self.model_name = 'rfc'
             
             
     def evaluate_svm(self):
@@ -214,6 +215,7 @@ class myModel:
             self.accuracy_scores = accuracy_scores
             self.macro_f1_scores = macro_f1_scores
             self.f1_dict = f1_dict
+            self.model_name = 'svm'
             
             
             
@@ -308,6 +310,7 @@ class myModel:
             self.accuracy_scores = accuracy_scores
             self.macro_f1_scores = macro_f1_scores
             self.f1_dict = f1_dict
+            self.model_name = 'knn'
 
 
 
