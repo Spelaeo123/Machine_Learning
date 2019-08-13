@@ -1,2 +1,0 @@
-sudo -u postgres psql
-sudo -u postgres pg_dump archeoViz > db_2.sql

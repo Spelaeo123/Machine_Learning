@@ -1,6 +1,0 @@
-#convert to pdf
-jupyter nbconvert --to pdf name_of_notebook.ipynb
-#convert to html
-jupyter nbconvert --to html name_of_notebook.ipynb
-
-

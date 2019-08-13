@@ -2,6 +2,9 @@
 configurations, these should be set before running the pipeline
 '''
 
+'''
+descriptions for paramaters
+'''
 
 '''drop_semi_bedrock ->  boolean, if set to True then some bedrock sites deemed to be semi-bedrock sites are not used for classification
 
@@ -24,6 +27,11 @@ unknown_identifier_value -> string, value in known_identifier_col that encodes t
 is unknown
 
 random_seed_state -> int, number to set randomness
+'''
+
+
+'''
+paramaters to be set
 '''
 
 bedrock_only = True
