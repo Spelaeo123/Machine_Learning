@@ -16,6 +16,10 @@ The pipeline includes data preproccessing, feature selection, dimensionality red
 
 ```conda activate my_env ```
 
+* change directory to one containing requirements files
+
+```cd config_and_dependencies```
+
 * install python libraries unto environment
 
 ``` conda install --file requirements_conda.txt```
