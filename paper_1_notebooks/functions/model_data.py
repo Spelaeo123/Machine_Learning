@@ -90,10 +90,12 @@ class myModel:
 
                 esti = RandomForestClassifier(max_features = 'auto', random_state = 42, n_jobs = -1)
 
-                n_estimators = [2, 5]
-                max_depth = [8, 12]
-                min_samples_split = [2, 4]
-                min_samples_leaf = [1, 3]
+                n_estimators = [1600, 2000, 2400 ]
+                max_depth = [8, 12, 16]
+                min_samples_split = [2, 6, 10]
+                min_samples_leaf = [1, 3, 5, 10]
+                
+                
 
                 param_grid = {
                            'max_depth': max_depth,
