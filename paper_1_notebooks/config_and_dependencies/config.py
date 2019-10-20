@@ -36,7 +36,7 @@ paramaters to be set
 
 bedrock_only = True
 data_input_path = '../data/raw_data.csv'
-drop_semi_bedrock = False
+drop_semi_bedrock = True
 features_start = 9
 features_end = -1
 target = 'class'

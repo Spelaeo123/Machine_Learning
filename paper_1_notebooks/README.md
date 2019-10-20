@@ -25,6 +25,10 @@ The pipeline includes data preproccessing, feature selection, dimensionality red
 ``` conda install --file requirements_conda.txt```
 ``` pip install -r requirements_pip.txt
 
+* install skbio
+
+```apt-get install python3-skbio python-skbio-doc```
+
 * the notebooks should be run in the order that they are numbered
 ***
 
