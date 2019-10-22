@@ -378,22 +378,27 @@ class bestHyperparamaters:
         
         self.X_post_smote = X_post_smote
         self.y_post_smote = y_post_smote
+        
+        esti = RandomForestClassifier(max_features = 'auto', random_state = 42, n_jobs = -1)
 
-        esti = RandomForestClassifier(n_estimators=5, random_state = 42)
+        n_estimators = [1600, 2000, 2400 ]
+        max_depth = [8, 12, 16]
+        min_samples_split = [2, 6, 10]
+        min_samples_leaf = [1, 3, 5, 10]
 
-
-        max_depth = [8, 10]
-        min_samples_split = [3, 4]
-        min_samples_leaf = [1, 2, 3]
+                
 
         param_grid = {
-                'max_depth': max_depth,
-                'min_samples_split': min_samples_split,
-                'min_samples_leaf': min_samples_leaf,
+                        'max_depth': max_depth,
+                        'min_samples_split': min_samples_split,
+                        'min_samples_leaf': min_samples_leaf,
+                        'n_estimators':n_estimators 
                         }
 
         clf = GridSearchCV(estimator = esti, param_grid= param_grid,
-                                          n_jobs=-1, scoring='f1_macro', cv = 10, verbose=3)
+                                          n_jobs=-1, scoring='f1_macro', cv = 5, verbose=3)
+
+
         clf.fit(X_post_smote, y_post_smote)
         esti_final = clf.best_estimator_
         
