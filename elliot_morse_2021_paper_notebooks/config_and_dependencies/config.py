@@ -3,10 +3,10 @@ configurations, these should be set before running the pipeline
 '''
 
 '''
-descriptions for paramaters
+descriptions for paramters
 '''
 
-'''drop_semi_bedrock ->  boolean, if set to True then some bedrock sites deemed to be semi-bedrock sites are not used for classification
+
 
 bedrock_only -> boolean, set to True if want to only classify into bedrock sites
 
@@ -34,9 +34,9 @@ random_seed_state -> int, number to set randomness
 paramaters to be set
 '''
 
-bedrock_only = True
+
 data_input_path = '../data/raw_data.csv'
-drop_semi_bedrock = True
+
 features_start = 9
 features_end = -1
 target = 'class'
