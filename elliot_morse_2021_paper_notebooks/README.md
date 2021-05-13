@@ -34,4 +34,4 @@ The pipeline includes data preproccessing, feature selection, dimensionality red
 
 This pipeline was originally used for the study referenced below:
 
-paper ref:
+paper ref: https://www.nature.com/articles/s41598-021-87834-3
