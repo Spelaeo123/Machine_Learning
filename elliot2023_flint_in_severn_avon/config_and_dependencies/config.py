@@ -35,7 +35,7 @@ paramaters to be set
 '''
 
 bedrock_only = True
-data_input_path = '../data/raw_data.csv'
+data_input_path = '../data/raw_data_with_sup_colours.csv'
 drop_semi_bedrock = True
 features_start = 9
 features_end = -1
