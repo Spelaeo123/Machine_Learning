@@ -42,5 +42,5 @@ features_end = -1
 target = 'class'
 known_idententifier_col = 'Geology'
 known_identifier_value = 'samples'
-unknown_identifier_value = 'Artefacts'
+unknown_identifier_value = 'Superficial'
 random_seed_state = 42

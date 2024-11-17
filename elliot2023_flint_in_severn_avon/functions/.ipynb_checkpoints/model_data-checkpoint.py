@@ -88,7 +88,7 @@ class myModel:
 
                 ###this section optimises model paramaters by gridsearch 
 
-                esti = RandomForestClassifier(max_features = 'auto', random_state = 42, n_jobs = -1)
+                esti = RandomForestClassifier(max_features = 'auto', random_state = 42, n_jobs = 1)
 
                 n_estimators = [1600, 2000, 2400 ]
                 max_depth = [8, 12, 16]
@@ -105,7 +105,7 @@ class myModel:
                               }
 
                 clf = GridSearchCV(estimator = esti, param_grid= param_grid,
-                                          n_jobs=-1, scoring='f1_macro', cv = 5, verbose=3)
+                                          n_jobs=1, scoring='f1_macro', cv = 5, verbose=3)
                 print('running grid search on this training data fold')
                 clf.fit(X_post_smote, y_post_smote)
                 optimumEstimator = clf.best_estimator_
@@ -379,7 +379,7 @@ class bestHyperparamaters:
         self.X_post_smote = X_post_smote
         self.y_post_smote = y_post_smote
         
-        esti = RandomForestClassifier(max_features = 'auto', random_state = 42, n_jobs = -1)
+        esti = RandomForestClassifier(max_features = 'auto', random_state = 42, n_jobs = 1)
 
         n_estimators = [1600, 2000, 2400 ]
         max_depth = [8, 12, 16]
@@ -396,7 +396,7 @@ class bestHyperparamaters:
                         }
 
         clf = GridSearchCV(estimator = esti, param_grid= param_grid,
-                                          n_jobs=-1, scoring='f1_macro', cv = 5, verbose=3)
+                                          n_jobs=1, scoring='f1_macro', cv = 5, verbose=3)
 
 
         clf.fit(X_post_smote, y_post_smote)
